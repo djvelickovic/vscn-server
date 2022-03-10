@@ -1,12 +1,20 @@
 const express = require('express')
+const path = require('path')
+
+const scanRouter = require('./routes/scanner')
 
 const app = express()
-const port = 3000
+const port = parseInt(process.env.PORT || '3000')
 
-app.get('/', async (req, res) => {
-    res.send('Hello world')
+app.use(express.json())
+app.use(express.urlencoded({ extended: false }))
+
+app.use('/scan', scanRouter)
+
+app.use((req, res, next) => {
+  res.status(404).send('Sorry, requested path does not exist')
 })
 
 app.listen(port, () => {
-    console.log(`App is listening on the port ${port}`)
+  console.log(`App is listening on the port ${port}`)
 })
