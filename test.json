@@ -124,3 +124,27 @@
     }
   ]
 }
+
+
+{
+  "CVE_data_version": "4.0",
+  "nodes": [
+    {
+      "operator": "OR",
+      "children": [],
+      "cpe_match": [
+        {
+          "vulnerable": true,
+          "cpe23Uri": "cpe:2.3:o:microsoft:windows:-:*:*:*:*:*:*:*",
+          "cpe_name": [],
+          "type": "o",
+          "vendor": "microsoft",
+          "product": "windows",
+          "exactVersion": null,
+          "update": null,
+          "target": null
+        }
+      ]
+    }
+  ]
+}

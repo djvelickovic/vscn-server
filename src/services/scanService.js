@@ -44,32 +44,28 @@ const filterVulnerabilities = (vulnerabilities, dependency, allDependencies) => 
   console.log(`Scanning ${vulnerabilities.length} for ${dependency.product} - ${dependency.version}`)
 
   return vulnerabilities.filter(vulnerability => vulnerability.config.nodes.some(node => {
-    return traverseNode(node, dependency, allDependencies)
+    return traverseNode(node, allDependencies)
   }))
 }
 
 
-const traverseNode = (node, dependency, allDependencies) => {
+const traverseNode = (node, allDependencies) => {
   const { cpe_match: cpeMatches, operator, children } = node
 
   if (operator === 'OR') {
     if (children && children.length > 0) {
-      return children.some(node => traverseNode(node, dependency, allDependencies))
+      return children.some(node => traverseNode(node, allDependencies))
     }
 
-    return cpeMatches.some(cpeMatch => hasCPEMatch(dependency, cpeMatch))
+    return cpeMatches.some(cpeMatch => hasCPEMatch(cpeMatch, allDependencies))
   }
   if (operator === 'AND') {
     if (children && children.length > 0) {
-      return children.every(node => traverseNode(node, dependency, allDependencies))
+      return children.every(node => traverseNode(node, allDependencies))
     }
 
     return cpeMatches.every(cpeMatch => {
-      const dependency = allDependencies.get(cpeMatch.product)
-      if (!dependency) {
-        return false
-      }
-      return hasCPEMatch(dependency, cpeMatch)
+      return hasCPEMatch(cpeMatch, allDependencies)
     })
   }
 
@@ -77,7 +73,7 @@ const traverseNode = (node, dependency, allDependencies) => {
 }
 
 
-const hasCPEMatch = (dependency, cpeMatch) => {
+const hasCPEMatch = (cpeMatch, allDependencies) => {
   const {
     type,
     versionStartIncluding,
@@ -90,7 +86,12 @@ const hasCPEMatch = (dependency, cpeMatch) => {
     product
   } = cpeMatch
 
-  // TODO: implement crosscheck
+  const dependency = allDependencies.get(cpeMatch.product)
+  if (!dependency) {
+    return false
+  }
+
+  // TODO: Optimize for the OS crosscheck
   // if (type !== 'a') return false
   if (product !== dependency.product) return false
 
