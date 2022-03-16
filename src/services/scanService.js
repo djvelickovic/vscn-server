@@ -7,13 +7,17 @@ const compareVersions = require('compare-versions')
  * @return {Promise<[]>}
  */
 module.exports.scan = async (dependencies) => {
+  const allDependencies = dependencies.reduce((acc, curr) => {
+    acc.set(curr.product, curr)
+    return acc
+  }, new Map())
 
   const results = []
 
-  for (const dependency of dependencies) {
+  for (const dependency of allDependencies.values()) {
 
     const vulnerabilities = await scanDatabase(dependency.product)
-    const matched = filterRelevant(vulnerabilities, dependency)
+    const matched = filterVulnerabilities(vulnerabilities, dependency, allDependencies)
     console.log(`For dependency ${dependency} found ${matched.length} vulnerabilities`)
 
     results.push({
@@ -21,7 +25,6 @@ module.exports.scan = async (dependencies) => {
       cve: matched.map(match => match.id)
     })
   }
-
   return results
 }
 
@@ -34,51 +37,85 @@ const scanDatabase = async (product) => dbo.getDb()
  *
  * @param vulnerabilities
  * @param {{product: string, version: string}} dependency
+ * @param {Map} allDependencies
  * @return {*}
  */
-const filterRelevant = (vulnerabilities, dependency) => {
+const filterVulnerabilities = (vulnerabilities, dependency, allDependencies) => {
   console.log(`Scanning ${vulnerabilities.length} for ${dependency.product} - ${dependency.version}`)
 
-  //TODO: implement crosschecking logic
-
   return vulnerabilities.filter(vulnerability => vulnerability.config.nodes.some(node => {
+    return traverseNode(node, dependency, allDependencies)
+  }))
+}
 
-    const { cpe_match: matches } = node
 
-    if (!matches) return false
+const traverseNode = (node, dependency, allDependencies) => {
+  const { cpe_match: cpeMatches, operator, children } = node
 
-    const match = matches.some(match => {
-      const {
-        type,
-        versionStartIncluding,
-        versionEndIncluding,
-        versionStartExcluding,
-        versionEndExcluding,
-        exactVersion,
-        update,
-        target,
-        product
-      } = match
+  if (operator === 'OR') {
+    if (children && children.length > 0) {
+      return children.some(node => traverseNode(node, dependency, allDependencies))
+    }
 
-      // TODO: implement crosscheck
-      if (type !== 'a') return false
-      if (product !== dependency.product) return false
+    return cpeMatches.some(cpeMatch => hasCPEMatch(dependency, cpeMatch))
+  }
+  if (operator === 'AND') {
+    if (children && children.length > 0) {
+      return children.every(node => traverseNode(node, dependency, allDependencies))
+    }
 
-      const upperBoundVersion = versionEndIncluding || versionEndExcluding
-      const upperBound = upperBoundVersion && { version: upperBoundVersion, include: !!versionEndIncluding }
+    return cpeMatches.every(cpeMatch => {
+      const dependency = allDependencies.get(cpeMatch.product)
+      if (!dependency) {
+        return false
+      }
+      return hasCPEMatch(dependency, cpeMatch)
+    })
+  }
 
-      const lowerBoundVersion = versionStartIncluding || versionStartExcluding
-      const lowerBound = lowerBoundVersion && { version: lowerBoundVersion, include: !!versionStartIncluding }
+  return true
+}
 
+
+const hasCPEMatch = (dependency, cpeMatch) => {
+  const {
+    type,
+    versionStartIncluding,
+    versionEndIncluding,
+    versionStartExcluding,
+    versionEndExcluding,
+    exactVersion,
+    update,
+    target,
+    product
+  } = cpeMatch
+
+  // TODO: implement crosscheck
+  // if (type !== 'a') return false
+  if (product !== dependency.product) return false
+
+  const upperBoundVersion = versionEndIncluding || versionEndExcluding
+  const upperBound = upperBoundVersion && { version: upperBoundVersion, include: !!versionEndIncluding }
+
+  const lowerBoundVersion = versionStartIncluding || versionStartExcluding
+  const lowerBound = lowerBoundVersion && { version: lowerBoundVersion, include: !!versionStartIncluding }
+
+  try {
+    if (dependency.version && (upperBound || lowerBound || exactVersion)) {
       if (upperBound || lowerBound) return isBetween(lowerBound, upperBound, dependency.version)
 
       if (exactVersion) return exactMatch(exactVersion, dependency.version)
+    }
 
-      return true
-    })
+    if (!dependency.version && (upperBound || lowerBound || exactVersion)) {
+      return false
+    }
 
-    if (match) return true
-  }))
+  } catch (error) {
+    console.error(error)
+    return false
+  }
+  return true
 }
 
 /**

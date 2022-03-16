@@ -2,928 +2,125 @@
   "CVE_data_version": "4.0",
   "nodes": [
     {
-      "operator": "AND",
+      "operator": "OR",
       "children": [],
       "cpe_match": [
         {
           "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:pivotal_software:spring_security:*:*:*:*:*:*:*:*",
+          "cpe23Uri": "cpe:2.3:a:vmware:spring_framework:*:*:*:*:*:*:*:*",
+          "versionStartIncluding": "5.2.0",
+          "versionEndIncluding": "5.2.18",
           "cpe_name": [],
           "type": "a",
-          "vendor": "pivotal_software",
-          "product": "spring_security",
-          "exactVersion": null,
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:pivotal_software:spring_framework:5.0.5:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "pivotal_software",
+          "vendor": "vmware",
           "product": "spring_framework",
-          "exactVersion": "5.0.5",
+          "exactVersion": null,
+          "update": null,
+          "target": null
+        },
+        {
+          "vulnerable": true,
+          "cpe23Uri": "cpe:2.3:a:vmware:spring_framework:*:*:*:*:*:*:*:*",
+          "versionStartIncluding": "5.3.0",
+          "versionEndIncluding": "5.3.13",
+          "cpe_name": [],
+          "type": "a",
+          "vendor": "vmware",
+          "product": "spring_framework",
+          "exactVersion": null,
           "update": null,
           "target": null
         }
       ]
-    },
+    }
+  ]
+}
+
+
+
+{
+  "CVE_data_version": "4.0",
+  "nodes": [
     {
-      "operator": "OR",
-      "children": [],
-      "cpe_match": [
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:agile_plm:9.3.3:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "agile_plm",
-          "exactVersion": "9.3.3",
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:agile_plm:9.3.4:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "agile_plm",
-          "exactVersion": "9.3.4",
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:agile_plm:9.3.5:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "agile_plm",
-          "exactVersion": "9.3.5",
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:agile_plm:9.3.6:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "agile_plm",
-          "exactVersion": "9.3.6",
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:application_testing_suite:10.1:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "application_testing_suite",
-          "exactVersion": "10.1",
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:application_testing_suite:12.5.0.3:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "application_testing_suite",
-          "exactVersion": "12.5.0.3",
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:application_testing_suite:13.1.0.1:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "application_testing_suite",
-          "exactVersion": "13.1.0.1",
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:application_testing_suite:13.2.0.1:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "application_testing_suite",
-          "exactVersion": "13.2.0.1",
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:application_testing_suite:13.3.0.1:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "application_testing_suite",
-          "exactVersion": "13.3.0.1",
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:big_data_discovery:1.6.0:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "big_data_discovery",
-          "exactVersion": "1.6.0",
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:communications_converged_application_server:*:*:*:*:*:*:*:*",
-          "versionEndExcluding": "7.0.0.1",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "communications_converged_application_server",
-          "exactVersion": null,
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:communications_diameter_signaling_router:*:*:*:*:*:*:*:*",
-          "versionEndExcluding": "8.3",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "communications_diameter_signaling_router",
-          "exactVersion": null,
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:communications_network_integrity:*:*:*:*:*:*:*:*",
-          "versionStartIncluding": "7.3.2",
-          "versionEndIncluding": "7.3.6",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "communications_network_integrity",
-          "exactVersion": null,
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:communications_performance_intelligence_center:*:*:*:*:*:*:*:*",
-          "versionEndExcluding": "10.2.1",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "communications_performance_intelligence_center",
-          "exactVersion": null,
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:communications_services_gatekeeper:*:*:*:*:*:*:*:*",
-          "versionEndExcluding": "6.1.0.4.0",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "communications_services_gatekeeper",
-          "exactVersion": null,
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:endeca_information_discovery_integrator:3.1.0:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "endeca_information_discovery_integrator",
-          "exactVersion": "3.1.0",
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:endeca_information_discovery_integrator:3.2.0:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "endeca_information_discovery_integrator",
-          "exactVersion": "3.2.0",
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:enterprise_manager_for_mysql_database:13.2:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "enterprise_manager_for_mysql_database",
-          "exactVersion": "13.2",
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:enterprise_manager_ops_center:12.2.2:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "enterprise_manager_ops_center",
-          "exactVersion": "12.2.2",
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:enterprise_manager_ops_center:12.3.3:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "enterprise_manager_ops_center",
-          "exactVersion": "12.3.3",
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:enterprise_repository:11.1.1.7.0:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "enterprise_repository",
-          "exactVersion": "11.1.1.7.0",
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:enterprise_repository:12.1.3.0.0:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "enterprise_repository",
-          "exactVersion": "12.1.3.0.0",
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:goldengate_for_big_data:12.2.0.1:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "goldengate_for_big_data",
-          "exactVersion": "12.2.0.1",
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:goldengate_for_big_data:12.3.1.1:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "goldengate_for_big_data",
-          "exactVersion": "12.3.1.1",
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:goldengate_for_big_data:12.3.2.1:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "goldengate_for_big_data",
-          "exactVersion": "12.3.2.1",
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:health_sciences_information_manager:3.0:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "health_sciences_information_manager",
-          "exactVersion": "3.0",
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:healthcare_master_person_index:3.0:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "healthcare_master_person_index",
-          "exactVersion": "3.0",
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:healthcare_master_person_index:4.0:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "healthcare_master_person_index",
-          "exactVersion": "4.0",
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:hospitality_guest_access:4.2.0:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "hospitality_guest_access",
-          "exactVersion": "4.2.0",
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:hospitality_guest_access:4.2.1:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "hospitality_guest_access",
-          "exactVersion": "4.2.1",
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:insurance_calculation_engine:10.1.1:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "insurance_calculation_engine",
-          "exactVersion": "10.1.1",
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:insurance_calculation_engine:10.2:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "insurance_calculation_engine",
-          "exactVersion": "10.2",
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:insurance_calculation_engine:10.2.1:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "insurance_calculation_engine",
-          "exactVersion": "10.2.1",
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:insurance_policy_administration:10.0:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "insurance_policy_administration",
-          "exactVersion": "10.0",
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:insurance_policy_administration:10.1:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "insurance_policy_administration",
-          "exactVersion": "10.1",
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:insurance_policy_administration:10.2:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "insurance_policy_administration",
-          "exactVersion": "10.2",
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:insurance_policy_administration:11.0:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "insurance_policy_administration",
-          "exactVersion": "11.0",
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:insurance_rules_palette:10.0:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "insurance_rules_palette",
-          "exactVersion": "10.0",
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:insurance_rules_palette:10.1:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "insurance_rules_palette",
-          "exactVersion": "10.1",
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:insurance_rules_palette:10.2:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "insurance_rules_palette",
-          "exactVersion": "10.2",
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:insurance_rules_palette:11.0:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "insurance_rules_palette",
-          "exactVersion": "11.0",
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:insurance_rules_palette:11.1:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "insurance_rules_palette",
-          "exactVersion": "11.1",
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:micros_lucas:2.9.5:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "micros_lucas",
-          "exactVersion": "2.9.5",
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:mysql_enterprise_monitor:*:*:*:*:*:*:*:*",
-          "versionEndIncluding": "8.0.2.8191",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "mysql_enterprise_monitor",
-          "exactVersion": null,
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:peoplesoft_enterprise_fin_install:9.2:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "peoplesoft_enterprise_fin_install",
-          "exactVersion": "9.2",
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:retail_assortment_planning:14.1:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "retail_assortment_planning",
-          "exactVersion": "14.1",
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:retail_assortment_planning:15.0:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "retail_assortment_planning",
-          "exactVersion": "15.0",
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:retail_assortment_planning:16.0:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "retail_assortment_planning",
-          "exactVersion": "16.0",
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:retail_back_office:14.0:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "retail_back_office",
-          "exactVersion": "14.0",
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:retail_back_office:14.1:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "retail_back_office",
-          "exactVersion": "14.1",
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:retail_central_office:14.0:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "retail_central_office",
-          "exactVersion": "14.0",
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:retail_central_office:14.1:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "retail_central_office",
-          "exactVersion": "14.1",
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:retail_customer_insights:15.0:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "retail_customer_insights",
-          "exactVersion": "15.0",
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:retail_customer_insights:16.0:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "retail_customer_insights",
-          "exactVersion": "16.0",
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:retail_financial_integration:13.2:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "retail_financial_integration",
-          "exactVersion": "13.2",
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:retail_financial_integration:14.0:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "retail_financial_integration",
-          "exactVersion": "14.0",
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:retail_financial_integration:14.1:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "retail_financial_integration",
-          "exactVersion": "14.1",
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:retail_financial_integration:15.0:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "retail_financial_integration",
-          "exactVersion": "15.0",
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:retail_financial_integration:16.0:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "retail_financial_integration",
-          "exactVersion": "16.0",
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:retail_integration_bus:14.1.2:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "retail_integration_bus",
-          "exactVersion": "14.1.2",
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:retail_point-of-service:14.0:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "retail_point-of-service",
-          "exactVersion": "14.0",
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:retail_point-of-service:14.1:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "retail_point-of-service",
-          "exactVersion": "14.1",
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:retail_returns_management:14.0:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "retail_returns_management",
-          "exactVersion": "14.0",
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:retail_returns_management:14.1:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "retail_returns_management",
-          "exactVersion": "14.1",
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:retail_xstore_point_of_service:17.0:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "retail_xstore_point_of_service",
-          "exactVersion": "17.0",
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:service_architecture_leveraging_tuxedo:12.1.3.0.0:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "service_architecture_leveraging_tuxedo",
-          "exactVersion": "12.1.3.0.0",
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:service_architecture_leveraging_tuxedo:12.2.2.0.0:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "service_architecture_leveraging_tuxedo",
-          "exactVersion": "12.2.2.0.0",
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:tape_library_acsls:8.4:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "tape_library_acsls",
-          "exactVersion": "8.4",
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:weblogic_server:10.3.6.0:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "weblogic_server",
-          "exactVersion": "10.3.6.0",
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:weblogic_server:12.1.3.0:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "weblogic_server",
-          "exactVersion": "12.1.3.0",
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:weblogic_server:12.2.1.2:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "weblogic_server",
-          "exactVersion": "12.2.1.2",
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:oracle:weblogic_server:12.2.1.3:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "oracle",
-          "product": "weblogic_server",
-          "exactVersion": "12.2.1.3",
-          "update": null,
-          "target": null
+      "operator": "AND",
+      "children": [
+        {
+          "operator": "OR",
+          "children": [],
+          "cpe_match": [
+            {
+              "vulnerable": true,
+              "cpe23Uri": "cpe:2.3:a:paloaltonetworks:cortex_xdr_agent:*:*:*:*:*:*:*:*",
+              "versionStartIncluding": "5.0",
+              "versionEndExcluding": "5.0.12",
+              "cpe_name": [],
+              "type": "a",
+              "vendor": "paloaltonetworks",
+              "product": "cortex_xdr_agent",
+              "exactVersion": null,
+              "update": null,
+              "target": null
+            },
+            {
+              "vulnerable": true,
+              "cpe23Uri": "cpe:2.3:a:paloaltonetworks:cortex_xdr_agent:*:*:*:*:*:*:*:*",
+              "versionStartIncluding": "6.1",
+              "versionEndExcluding": "6.1.9",
+              "cpe_name": [],
+              "type": "a",
+              "vendor": "paloaltonetworks",
+              "product": "cortex_xdr_agent",
+              "exactVersion": null,
+              "update": null,
+              "target": null
+            },
+            {
+              "vulnerable": true,
+              "cpe23Uri": "cpe:2.3:a:paloaltonetworks:cortex_xdr_agent:*:*:*:*:*:*:*:*",
+              "versionStartIncluding": "7.2",
+              "versionEndExcluding": "7.2.4",
+              "cpe_name": [],
+              "type": "a",
+              "vendor": "paloaltonetworks",
+              "product": "cortex_xdr_agent",
+              "exactVersion": null,
+              "update": null,
+              "target": null
+            },
+            {
+              "vulnerable": true,
+              "cpe23Uri": "cpe:2.3:a:paloaltonetworks:cortex_xdr_agent:*:*:*:*:*:*:*:*",
+              "versionStartIncluding": "7.3",
+              "versionEndExcluding": "7.3.2",
+              "cpe_name": [],
+              "type": "a",
+              "vendor": "paloaltonetworks",
+              "product": "cortex_xdr_agent",
+              "exactVersion": null,
+              "update": null,
+              "target": null
+            }
+          ]
+        },
+        {
+          "operator": "OR",
+          "children": [],
+          "cpe_match": [
+            {
+              "vulnerable": false,
+              "cpe23Uri": "cpe:2.3:o:microsoft:windows:-:*:*:*:*:*:*:*",
+              "cpe_name": [],
+              "type": "o",
+              "vendor": "microsoft",
+              "product": "windows",
+              "exactVersion": null,
+              "update": null,
+              "target": null
+            }
+          ]
         }
-      ]
-    },
-    {
-      "operator": "OR",
-      "children": [],
-      "cpe_match": [
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:netapp:oncommand_insight:-:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "netapp",
-          "product": "oncommand_insight",
-          "exactVersion": null,
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:netapp:oncommand_unified_manager:*:*:*:*:*:vsphere:*:*",
-          "versionStartIncluding": "9.4",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "netapp",
-          "product": "oncommand_unified_manager",
-          "exactVersion": null,
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:netapp:oncommand_unified_manager:*:*:*:*:*:windows:*:*",
-          "versionStartIncluding": "7.3",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "netapp",
-          "product": "oncommand_unified_manager",
-          "exactVersion": null,
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:netapp:snapcenter:-:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "netapp",
-          "product": "snapcenter",
-          "exactVersion": null,
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:netapp:oncommand_workflow_automation:-:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "netapp",
-          "product": "oncommand_workflow_automation",
-          "exactVersion": null,
-          "update": null,
-          "target": null
-        },
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:netapp:storage_automation_store:-:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "netapp",
-          "product": "storage_automation_store",
-          "exactVersion": null,
-          "update": null,
-          "target": null
-        }
-      ]
-    },
-    {
-      "operator": "OR",
-      "children": [],
-      "cpe_match": [
-        {
-          "vulnerable": true,
-          "cpe23Uri": "cpe:2.3:a:redhat:fuse:7.3.0:*:*:*:*:*:*:*",
-          "cpe_name": [],
-          "type": "a",
-          "vendor": "redhat",
-          "product": "fuse",
-          "exactVersion": "7.3.0",
-          "update": null,
-          "target": null
-        }
-      ]
+      ],
+      "cpe_match": []
     }
   ]
 }

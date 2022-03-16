@@ -1,9 +1,13 @@
 const cveService = require('../services/cveService')
 
-module.exports.getCVEDetails = (req, res) => {
-  res.send('Hello from CVE')
-}
-
 module.exports.getCVEs = (req, res) => {
-  res.send('Hello from CVE')
+  const cveList = [
+    ...(Array.isArray(req.query.id) ? req.query.id : [req.query.id])
+  ]
+
+  cveService.getCVEs(cveList)
+    .then(result => {
+      result.forEach(cve => delete cve._id)
+      res.send(result)
+    })
 }
