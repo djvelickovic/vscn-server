@@ -1,12 +1,13 @@
 const dbo = require('../db/conn')
 const { MONGO_MATCHERS_COLLECTION } = require('../constants/constants')
-const compareVersions = require('compare-versions')
+const { compare } = require('compare-versions')
 /**
  *
  * @param {[]} dependencies
+ * @param {{os: {}}} metadata
  * @return {Promise<[]>}
  */
-module.exports.scan = async (dependencies) => {
+module.exports.scan = async (dependencies, metadata) => {
   const allDependencies = dependencies.reduce((acc, curr) => {
     acc.set(curr.product, curr)
     return acc
@@ -17,7 +18,7 @@ module.exports.scan = async (dependencies) => {
   for (const dependency of allDependencies.values()) {
 
     const vulnerabilities = await scanDatabase(dependency.product)
-    const matched = filterVulnerabilities(vulnerabilities, dependency, allDependencies)
+    const matched = filterVulnerabilities(vulnerabilities, dependency, allDependencies, metadata)
     console.log(`For dependency ${dependency} found ${matched.length} vulnerabilities`)
 
     results.push({
@@ -38,34 +39,35 @@ const scanDatabase = async (product) => dbo.getDb()
  * @param vulnerabilities
  * @param {{product: string, version: string}} dependency
  * @param {Map} allDependencies
+ * @param {{os: {}}} metadata
  * @return {*}
  */
-const filterVulnerabilities = (vulnerabilities, dependency, allDependencies) => {
+const filterVulnerabilities = (vulnerabilities, dependency, allDependencies, metadata) => {
   console.log(`Scanning ${vulnerabilities.length} for ${dependency.product} - ${dependency.version}`)
 
   return vulnerabilities.filter(vulnerability => vulnerability.config.nodes.some(node => {
-    return traverseNode(node, allDependencies)
+    return traverseNode(node, allDependencies, metadata)
   }))
 }
 
 
-const traverseNode = (node, allDependencies) => {
+const traverseNode = (node, allDependencies, metadata) => {
   const { cpe_match: cpeMatches, operator, children } = node
 
   if (operator === 'OR') {
     if (children && children.length > 0) {
-      return children.some(node => traverseNode(node, allDependencies))
+      return children.some(node => traverseNode(node, allDependencies, metadata))
     }
 
-    return cpeMatches.some(cpeMatch => hasCPEMatch(cpeMatch, allDependencies))
+    return cpeMatches.some(cpeMatch => hasCPEMatch(cpeMatch, allDependencies, metadata))
   }
   if (operator === 'AND') {
     if (children && children.length > 0) {
-      return children.every(node => traverseNode(node, allDependencies))
+      return children.every(node => traverseNode(node, allDependencies, metadata))
     }
 
     return cpeMatches.every(cpeMatch => {
-      return hasCPEMatch(cpeMatch, allDependencies)
+      return hasCPEMatch(cpeMatch, allDependencies, metadata)
     })
   }
 
@@ -73,7 +75,7 @@ const traverseNode = (node, allDependencies) => {
 }
 
 
-const hasCPEMatch = (cpeMatch, allDependencies) => {
+const hasCPEMatch = (cpeMatch, allDependencies, metadata) => {
   const {
     type,
     versionStartIncluding,
@@ -86,14 +88,18 @@ const hasCPEMatch = (cpeMatch, allDependencies) => {
     product
   } = cpeMatch
 
-  const dependency = allDependencies.get(cpeMatch.product)
-  if (!dependency) {
-    return false
-  }
+  const { os } = metadata
 
-  // TODO: Optimize for the OS crosscheck
-  // if (type !== 'a') return false
-  if (product !== dependency.product) return false
+  let dependency
+
+  if (type === 'o' && os) {
+    dependency = os
+  } else { // type === 'a' || type === 'h'
+    dependency = allDependencies.get(product)
+    if (!dependency) {
+      return false
+    }
+  }
 
   const upperBoundVersion = versionEndIncluding || versionEndExcluding
   const upperBound = upperBoundVersion && { version: upperBoundVersion, include: !!versionEndIncluding }
@@ -129,10 +135,10 @@ const isBetween = (lowerBound, upperBound, version) => {
   let matchLowerBound = true
   let matchUpperBound = true
   if (lowerBound)
-    matchLowerBound = compareVersions.compare(version, lowerBound.version, lowerBound.include ? '>=' : '>')
+    matchLowerBound = compare(version, lowerBound.version, lowerBound.include ? '>=' : '>')
 
   if (upperBound)
-    matchUpperBound = compareVersions.compare(version, upperBound.version, upperBound.include ? '<=' : '<')
+    matchUpperBound = compare(version, upperBound.version, upperBound.include ? '<=' : '<')
 
   return matchLowerBound && matchUpperBound
 }
@@ -142,4 +148,4 @@ const isBetween = (lowerBound, upperBound, version) => {
  * @param {string} exactVersion
  * @param {string} version
  */
-const exactMatch = (exactVersion, version) => compareVersions.compare(exactVersion, version, '=')
+const exactMatch = (exactVersion, version) => compare(exactVersion, version, '=')
