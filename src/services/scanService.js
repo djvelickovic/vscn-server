@@ -1,29 +1,33 @@
 const dbo = require('../db/conn')
 const { MONGO_MATCHERS_COLLECTION } = require('../constants/constants')
 const { compare } = require('compare-versions')
+
 /**
  *
  * @param {[]} dependencies
- * @param {{os: {}}} metadata
+ * @param {{os: { product: string, version: string}}} metadata
  * @return {Promise<[]>}
  */
 module.exports.scan = async (dependencies, metadata) => {
   const allDependencies = dependencies.reduce((acc, curr) => {
-    acc.set(curr.product, curr)
+    const { product } = curr
+    acc.set(product, curr)
     return acc
   }, new Map())
 
   const results = []
 
   for (const dependency of allDependencies.values()) {
+    const { product } = dependency
 
-    const vulnerabilities = await scanDatabase(dependency.product)
-    const matched = filterVulnerabilities(vulnerabilities, dependency, allDependencies, metadata)
-    console.log(`For dependency ${dependency} found ${matched.length} vulnerabilities`)
+    const cves = await scanDatabase(product)
+    const matchedCVEs = cves.filter(cve => traverseCVE(cve, allDependencies, metadata))
+
+    console.log(`For dependency ${dependency} found ${matchedCVEs.length} vulnerabilities`)
 
     results.push({
       dependency,
-      cve: matched.map(match => match.id)
+      vulnerabilities: matchedCVEs.map(match => match.id)
     })
   }
   return results
@@ -34,22 +38,9 @@ const scanDatabase = async (product) => dbo.getDb()
   .find({ products: product })
   .toArray()
 
-/**
- *
- * @param vulnerabilities
- * @param {{product: string, version: string}} dependency
- * @param {Map} allDependencies
- * @param {{os: {}}} metadata
- * @return {*}
- */
-const filterVulnerabilities = (vulnerabilities, dependency, allDependencies, metadata) => {
-  console.log(`Scanning ${vulnerabilities.length} for ${dependency.product} - ${dependency.version}`)
-
-  return vulnerabilities.filter(vulnerability => vulnerability.config.nodes.some(node => {
-    return traverseNode(node, allDependencies, metadata)
-  }))
+const traverseCVE = (cve, allDependencies, metadata) => {
+  return cve?.config?.nodes?.some(node => traverseNode(node, allDependencies, metadata))
 }
-
 
 const traverseNode = (node, allDependencies, metadata) => {
   const { cpe_match: cpeMatches, operator, children } = node
@@ -61,14 +52,13 @@ const traverseNode = (node, allDependencies, metadata) => {
 
     return cpeMatches.some(cpeMatch => hasCPEMatch(cpeMatch, allDependencies, metadata))
   }
+
   if (operator === 'AND') {
     if (children && children.length > 0) {
       return children.every(node => traverseNode(node, allDependencies, metadata))
     }
 
-    return cpeMatches.every(cpeMatch => {
-      return hasCPEMatch(cpeMatch, allDependencies, metadata)
-    })
+    return cpeMatches.every(cpeMatch => hasCPEMatch(cpeMatch, allDependencies, metadata))
   }
 
   return true
