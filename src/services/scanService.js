@@ -4,30 +4,25 @@ const { compare } = require('compare-versions')
 
 /**
  *
- * @param {[]} dependencies
+ * @param {Map} dependencies
  * @param {{os: { product: string, version: string}}} metadata
  * @return {Promise<[]>}
  */
 module.exports.scan = async (dependencies, metadata) => {
-  const allDependencies = dependencies.reduce((acc, curr) => {
-    const { product } = curr
-    acc.set(product, curr)
-    return acc
-  }, new Map())
-
   const results = []
 
-  for (const dependency of allDependencies.values()) {
+  for (const dependency of dependencies.values()) {
     const { product } = dependency
 
     const cves = await scanDatabase(product)
-    const matchedCVEs = cves.filter(cve => traverseCVE(cve, allDependencies, metadata))
+    const matchedCVEs = cves.filter(cve => traverseCVE(cve, dependencies, metadata))
 
-    console.log(`For dependency ${dependency} found ${matchedCVEs.length} vulnerabilities`)
+    console.log(`Dependency ${dependency.product} has ${matchedCVEs.length} vulnerabilities`)
+
+    const uniqueAndSortedCVEs = [...new Set(matchedCVEs.map(match => match.id))].sort((cve1, cve2) => cve1.localeCompare(cve2))
 
     results.push({
-      dependency,
-      vulnerabilities: matchedCVEs.map(match => match.id)
+      dependency, vulnerabilities: uniqueAndSortedCVEs
     })
   }
   return results
@@ -38,34 +33,34 @@ const scanDatabase = async (product) => dbo.getDb()
   .find({ products: product })
   .toArray()
 
-const traverseCVE = (cve, allDependencies, metadata) => {
-  return cve?.config?.nodes?.some(node => traverseNode(node, allDependencies, metadata))
+const traverseCVE = (cve, dependencies, metadata) => {
+  return cve?.config?.nodes?.some(node => traverseNode(node, dependencies, metadata))
 }
 
-const traverseNode = (node, allDependencies, metadata) => {
+const traverseNode = (node, dependencies, metadata) => {
   const { cpe_match: cpeMatches, operator, children } = node
 
   if (operator === 'OR') {
     if (children && children.length > 0) {
-      return children.some(node => traverseNode(node, allDependencies, metadata))
+      return children.some(node => traverseNode(node, dependencies, metadata))
     }
 
-    return cpeMatches.some(cpeMatch => hasCPEMatch(cpeMatch, allDependencies, metadata))
+    return cpeMatches.some(cpeMatch => hasCPEMatch(cpeMatch, dependencies, metadata))
   }
 
   if (operator === 'AND') {
     if (children && children.length > 0) {
-      return children.every(node => traverseNode(node, allDependencies, metadata))
+      return children.every(node => traverseNode(node, dependencies, metadata))
     }
 
-    return cpeMatches.every(cpeMatch => hasCPEMatch(cpeMatch, allDependencies, metadata))
+    return cpeMatches.every(cpeMatch => hasCPEMatch(cpeMatch, dependencies, metadata))
   }
 
   return true
 }
 
 
-const hasCPEMatch = (cpeMatch, allDependencies, metadata) => {
+const hasCPEMatch = (cpeMatch, dependencies, metadata) => {
   const {
     type,
     versionStartIncluding,
@@ -85,7 +80,7 @@ const hasCPEMatch = (cpeMatch, allDependencies, metadata) => {
   if (type === 'o' && os) {
     dependency = os
   } else { // type === 'a' || type === 'h'
-    dependency = allDependencies.get(product)
+    dependency = dependencies.get(product)
     if (!dependency) {
       return false
     }
@@ -124,11 +119,9 @@ const hasCPEMatch = (cpeMatch, allDependencies, metadata) => {
 const isBetween = (lowerBound, upperBound, version) => {
   let matchLowerBound = true
   let matchUpperBound = true
-  if (lowerBound)
-    matchLowerBound = compare(version, lowerBound.version, lowerBound.include ? '>=' : '>')
+  if (lowerBound) matchLowerBound = compare(version, lowerBound.version, lowerBound.include ? '>=' : '>')
 
-  if (upperBound)
-    matchUpperBound = compare(version, upperBound.version, upperBound.include ? '<=' : '<')
+  if (upperBound) matchUpperBound = compare(version, upperBound.version, upperBound.include ? '<=' : '<')
 
   return matchLowerBound && matchUpperBound
 }
