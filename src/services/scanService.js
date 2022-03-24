@@ -21,9 +21,11 @@ module.exports.scan = async (dependencies, metadata) => {
 
     const uniqueAndSortedCVEs = [...new Set(matchedCVEs.map(match => match.id))].sort((cve1, cve2) => cve1.localeCompare(cve2))
 
-    results.push({
-      dependency, vulnerabilities: uniqueAndSortedCVEs
-    })
+    if (uniqueAndSortedCVEs.length > 0) {
+      results.push({
+        dependency, vulnerabilities: uniqueAndSortedCVEs
+      })
+    }
   }
   return results
 }

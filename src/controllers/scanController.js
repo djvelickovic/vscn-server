@@ -5,7 +5,8 @@ module.exports.scan = (req, res) => {
 
   const allDependencies = dependencies.reduce((acc, curr) => {
     const { product } = curr
-    acc.set(product, curr)
+    if (product)
+      acc.set(product, curr)
     return acc
   }, new Map())
 
