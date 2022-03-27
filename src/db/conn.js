@@ -3,10 +3,11 @@ require('dotenv').config()
 
 const connectionString = process.env.MONGODB_URI
 const databaseName = process.env.MONGODB_DATABASE_NAME
+const fixedPoolSize = +process.env.MONGODB_POOL_SIZE || 5
 
 const client = new mongodb.MongoClient(connectionString, {
-  maxPoolSize: 5,
-  minPoolSize: 5
+  maxPoolSize: fixedPoolSize,
+  minPoolSize: fixedPoolSize
 })
 
 let dbConnection
