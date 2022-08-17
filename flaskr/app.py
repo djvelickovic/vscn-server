@@ -1,12 +1,16 @@
 from flask import Flask, request
-from requests import ScanResponse, ScanReuqest, Dependency
+from requests import Dependency
 from pymongo import MongoClient
-from service import CveService, ScanService
+from matchers import ScanService
+from cves import CveService
 
 
 app = Flask(__name__)
 
-client = MongoClient('mongodb+srv://djovel:CY16FFToLpVC6vmB@cluster0.l0ius.mongodb.net/?retryWrites=true&w=majority')
+app.config.from_prefixed_env(prefix='FLASK')
+
+
+client = MongoClient(app.config['MONGO_DB_URL'])
 vscn = client.get_database('vscn-test')
 
 cve_service = CveService(vscn)
@@ -24,7 +28,6 @@ def scan():
     metadata = None
 
     response = scan_service.scan(dependencies, metadata)
-    # response1 = list(response)
     return response
 
 

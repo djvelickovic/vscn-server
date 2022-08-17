@@ -4,23 +4,6 @@ from requests import Dependency
 from packaging import version
 
 
-class CveService(object):
-    def __init__(self, vscn_db: database.Database):
-        self.cves = vscn_db.get_collection('cve')
-
-    def get_cves(self, cve_ids: List[str]):
-        result = self.cves.find({'id': {'$in': cve_ids}})
-        r = []
-        for cve in result:
-            cve.pop('_id')
-            r.append(cve)
-        return r
-
-
-def get_id(cve):
-    lambda x: x
-
-
 class ScanService(object):
     def __init__(self, vscn_db: database.Database):
         self.matchers = vscn_db.get_collection('matchers')
@@ -85,10 +68,7 @@ def get_has_cpe_match(dependencies: Dict[str, Dependency], metadata):
         version_start_excluding = cpe_match.get('versionStartExcluding')
         version_end_excluding = cpe_match.get('versionEndExcluding')
         exact_version = cpe_match.get('exactVersion')
-        update = cpe_match.get('update')
-        target = cpe_match.get('target')
         product = cpe_match.get('product')
-        type = cpe_match.get('type')
 
         dependency: Dependency = dependencies.get(product)
 
