@@ -1,0 +1,25 @@
+
+### Scan Dependencies
+
+POST http://localhost:5000/vscn/scan
+Content-Type: application/json
+
+{
+    "dependencies": [
+        {
+            "product": "jackson-databind",
+            "version": "2.12.6"
+        },
+        {
+            "product": "h2",
+            "version": "1.4.200"
+        }
+    ],
+    "metadata": { }
+}
+
+### Get Cve
+
+GET http://localhost:5000/vscn/cve?id=CVE-2020-35490&id=CVE-2021-22096
+
+
