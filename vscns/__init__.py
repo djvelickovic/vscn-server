@@ -23,7 +23,7 @@ def create_app(test_condif=None):
         response = scan_service.scan(dependecy_dict)
         return response
 
-    @ app.get('/vscn/cve')
+    @app.get('/vscn/cve')
     def cve():
         cve_ids = request.args.getlist('id')
         return cve_service.get_cves(cve_ids)

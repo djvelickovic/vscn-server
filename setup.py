@@ -12,7 +12,8 @@ setup(
         'pymongo',
         'certifi',
         'autopep8',
-        'flake8'
+        'flake8',
+        'packaging'
     ],
     author='Djordje Velickovic'
 )
