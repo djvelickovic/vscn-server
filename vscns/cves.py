@@ -13,7 +13,3 @@ class CveService(object):
             cve.pop('_id')
             r.append(cve)
         return r
-
-
-def get_id(cve):
-    lambda x: x

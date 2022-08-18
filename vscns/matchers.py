@@ -1,27 +1,27 @@
 from pymongo import database
 from typing import List, Dict
-from requests import Dependency
 from packaging import version
+from vscns.util import some, every
 
 
 class ScanService(object):
     def __init__(self, vscn_db: database.Database):
         self.matchers = vscn_db.get_collection('matchers')
 
-    def scan(self, dependencies: Dict[str, Dependency], metadata) -> List:
+    def scan(self, dependencies: Dict) -> List:
         results = []
 
         for dependency in dependencies.values():
-            cves = self.__scan_for_cves(dependency.product)
-            matched_cves = filter(get_traverse_cve(dependencies, metadata), cves)
+            cves = self.__scan_for_cves(dependency['product'])
+            matched_cves = filter(get_traverse_cve(dependencies), cves)
 
             unique_and_sorted_cves = {cve for cve in sorted(map(lambda cve: cve['id'], matched_cves))}
 
-            print(f'Dependency {dependency.product} has {len(unique_and_sorted_cves)} vulnerabilities')
+            print(f'Dependency {dependency["product"]} has {len(unique_and_sorted_cves)} vulnerabilities')
 
             if len(unique_and_sorted_cves) > 0:
                 results.append({
-                    'dependency': vars(dependency),
+                    'dependency': dependency,
                     'vulnerabilities': list(unique_and_sorted_cves)
                 })
 
@@ -32,16 +32,16 @@ class ScanService(object):
         return result
 
 
-def get_traverse_cve(dependencies, metadata):
+def get_traverse_cve(dependencies):
     def traverse_cve(cve):
         if cve['config'] and cve['config']['nodes']:
             nodes = cve['config']['nodes']
-            return some(get_traverse_node(dependencies, metadata), nodes)
+            return some(get_traverse_node(dependencies), nodes)
         return False
     return traverse_cve
 
 
-def get_traverse_node(dependencies, metadata):
+def get_traverse_node(dependencies):
     def traverse_node(node):
         cpe_match = node['cpe_match']
         operator = node['operator']
@@ -50,18 +50,18 @@ def get_traverse_node(dependencies, metadata):
         if operator == 'OR':
             if children and len(children) > 0:
                 return some(traverse_node, children)
-            return some(get_has_cpe_match(dependencies, metadata), cpe_match)
+            return some(get_has_cpe_match(dependencies), cpe_match)
 
         if operator == 'AND':
             if children and len(children) > 0:
                 return every(traverse_node, children)
-            return every(get_traverse_cve(dependencies, metadata), cpe_match)
+            return every(get_traverse_cve(dependencies), cpe_match)
 
         return True
     return traverse_node
 
 
-def get_has_cpe_match(dependencies: Dict[str, Dependency], metadata):
+def get_has_cpe_match(dependencies: Dict):
     def has_cpe_match(cpe_match: dict):
         version_start_including = cpe_match.get('versionStartIncluding')
         version_end_including = cpe_match.get('versionEndIncluding')
@@ -70,10 +70,12 @@ def get_has_cpe_match(dependencies: Dict[str, Dependency], metadata):
         exact_version = cpe_match.get('exactVersion')
         product = cpe_match.get('product')
 
-        dependency: Dependency = dependencies.get(product)
+        dependency = dependencies.get(product)
 
         if not dependency:
             return False
+
+        version = dependency['version']
 
         upper_bound_version = version_end_including if version_end_including else version_end_excluding
         upper_bound = {'version': upper_bound_version,
@@ -83,11 +85,11 @@ def get_has_cpe_match(dependencies: Dict[str, Dependency], metadata):
         lower_bound = {'version': lower_bound_version,
                        'include': True if version_start_including else False} if lower_bound_version else None
 
-        if (dependency.version and (upper_bound or lower_bound or exact_version)):
+        if (version and (upper_bound or lower_bound or exact_version)):
             if (upper_bound or lower_bound):
-                return is_between(lower_bound, upper_bound, dependency.version)
+                return is_between(lower_bound, upper_bound, version)
             if exact_version:
-                return exact_match(exact_version, dependency.version)
+                return exact_match(exact_version, version)
 
         if not dependency.version and (upper_bound or lower_bound or exact_version):
             return False
@@ -95,14 +97,6 @@ def get_has_cpe_match(dependencies: Dict[str, Dependency], metadata):
         return True
 
     return has_cpe_match
-
-
-def some(pred, _list) -> bool:
-    return any(pred(i) for i in _list)
-
-
-def every(pred, _list) -> bool:
-    return all(pred(i) for i in _list)
 
 
 def is_between(lower_bound, upper_bound, current_version):
