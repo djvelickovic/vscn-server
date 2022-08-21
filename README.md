@@ -2,16 +2,18 @@
 
 ## Running
 
-```python
+```bash
 python3 -m venv venv
 . venv/bin/activate
 
 pip install flask
 pip install packaging
 pip install pymongo
+pip install python-dotenv
 
-export FLASK_MONGO_DB_URL=<url goes here>
+FLASK_MONGO_DB_URL=<url goes here>
+MONGODB_DATABASE_NAME="vscn"
 
-flask --app vscns --debug run
+flask --app vscns.app --debug run
 
 ```
