@@ -17,3 +17,16 @@ MONGODB_DATABASE_NAME="vscn"
 flask --app vscns.app --debug run
 
 ```
+
+
+Creating indexes for scan
+
+connect to the database with mongosh and execute
+
+```js
+
+db.matchers.createIndex( { products: 1 } )
+db.cve.createIndex( { id: 1 } )
+
+
+```

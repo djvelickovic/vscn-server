@@ -34,7 +34,7 @@ class ScanService(object):
 
 def get_traverse_cve(dependencies):
     def traverse_cve(cve):
-        if cve['config'] and cve['config']['nodes']:
+        if 'config' in cve and 'nodes' in cve['config']:
             nodes = cve['config']['nodes']
             return some(get_traverse_node(dependencies), nodes)
         return False
@@ -85,11 +85,10 @@ def get_has_cpe_match(dependencies: Dict):
         lower_bound = {'version': lower_bound_version,
                        'include': True if version_start_including else False} if lower_bound_version else None
 
-        if (version and (upper_bound or lower_bound or exact_version)):
-            if (upper_bound or lower_bound):
-                return is_between(lower_bound, upper_bound, version)
-            if exact_version:
-                return exact_match(exact_version, version)
+        if (version and (upper_bound or lower_bound)):
+            return is_between(lower_bound, upper_bound, version)
+        if version and exact_version:
+            return exact_match(exact_version, version)
 
         if not dependency.version and (upper_bound or lower_bound or exact_version):
             return False

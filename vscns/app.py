@@ -2,6 +2,7 @@ from flask import Flask, request
 from pymongo import MongoClient
 from vscns.matchers import ScanService
 from vscns.cves import CveService
+from vscns.transform import TransformService
 from dotenv import dotenv_values
 
 
@@ -16,13 +17,14 @@ vscn = client.get_database(mongo_db_name)
 
 cve_service = CveService(vscn)
 scan_service = ScanService(vscn)
+transform_service = TransformService()
 
 
 @app.post('/vscn/scan')
 def scan():
     request_body = request.get_json()
-    dependecy_dict = {dependency['product']: dependency for dependency in request_body['dependencies']}
-    print(dependecy_dict)
+    transformed_dependencies = transform_service.transform(request_body['dependencies'])
+    dependecy_dict = {dependency['product']: dependency for dependency in transformed_dependencies}
     response = scan_service.scan(dependecy_dict)
     return response
 
