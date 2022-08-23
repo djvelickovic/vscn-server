@@ -5,18 +5,34 @@ from vscns.cves import CveService
 from vscns.transform import TransformService
 from dotenv import dotenv_values
 
+import json
 
 app = Flask(__name__)
 
 config = dotenv_values('.env')
 mongo_db_url = config['MONGO_DB_URL']
 mongo_db_name = config['MONGODB_DATABASE_NAME']
+test = bool(config['TEST'])
 
 client = MongoClient(mongo_db_url)
 vscn = client.get_database(mongo_db_name)
 
+
+products_set = set()
+
+
+if test:
+    print('Loaded products match from locale')
+    with open('products-set.json', 'r') as f:
+        products_set = set(json.load(f))
+else:
+    print('Loaded products match from database')
+    matchers = vscn.get_collection('matchers')
+    all_products = matchers.distinct('products')
+    products_set = set(all_products)
+
 cve_service = CveService(vscn)
-scan_service = ScanService(vscn)
+scan_service = ScanService(products_set, vscn)
 transform_service = TransformService()
 
 

@@ -40,10 +40,6 @@ class TransformService(object):
             self.__remove_tokens(product)
         ]
 
-        print(product)
-        if 'tomcat' in product:
-            print(self.__remove_tokens(product))
-
         result = [product]
         for rule in rules:
             result.extend(rule)

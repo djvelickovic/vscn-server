@@ -5,14 +5,20 @@ from vscns.util import some, every
 
 
 class ScanService(object):
-    def __init__(self, vscn_db: database.Database):
+    def __init__(self, products_set, vscn_db: database.Database):
         self.matchers = vscn_db.get_collection('matchers')
+        self.products_set = products_set
 
     def scan(self, dependencies: Dict) -> List:
         results = []
 
         for dependency in dependencies.values():
-            cves = self.__scan_for_cves(dependency['product'])
+            product = dependency['product']
+
+            if product not in self.products_set:
+                continue
+
+            cves = self.__scan_for_cves(product)
             matched_cves = filter(get_traverse_cve(dependencies), cves)
 
             unique_and_sorted_cves = {cve for cve in sorted(map(lambda cve: cve['id'], matched_cves))}
