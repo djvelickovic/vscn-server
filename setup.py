@@ -11,9 +11,8 @@ setup(
         'dnspython',
         'pymongo',
         'certifi',
-        'autopep8',
-        'flake8',
-        'packaging'
+        'packaging',
+        'python-dotenv'
     ],
     author='Djordje Velickovic'
 )

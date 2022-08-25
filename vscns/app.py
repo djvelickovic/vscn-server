@@ -3,25 +3,25 @@ from pymongo import MongoClient
 from vscns.matchers import ScanService
 from vscns.cves import CveService
 from vscns.transform import TransformService
-from dotenv import dotenv_values
+from dotenv import load_dotenv
+import os
 
 import json
 
+load_dotenv()
+
 app = Flask(__name__)
 
-config = dotenv_values('.env')
-mongo_db_url = config['MONGO_DB_URL']
-mongo_db_name = config['MONGODB_DATABASE_NAME']
-test = bool(config['TEST'])
+mongo_db_url = os.environ['MONGO_DB_URL']
+mongo_db_name = os.environ['MONGODB_DATABASE_NAME']
+debug = os.environ['DEBUG'].lower() == 'true'
 
 client = MongoClient(mongo_db_url)
 vscn = client.get_database(mongo_db_name)
 
-
 products_set = set()
 
-
-if test:
+if debug:
     print('Loaded products match from locale')
     with open('products-set.json', 'r') as f:
         products_set = set(json.load(f))
